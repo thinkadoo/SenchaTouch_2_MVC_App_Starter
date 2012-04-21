@@ -1,7 +1,9 @@
-# Icon Application Interface
+# MVC Application Starter
 
-Quick start for a SenchaTouch 2 app.
+Quick start for a MVC SenchaTouch 2 app.
 
 ## Example
 
-http://cl.ly/G1u2
+http://cl.ly/G1DM
+
+http://cl.ly/G2G8

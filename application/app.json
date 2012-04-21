@@ -1,5 +1,5 @@
 {
-    "name": "SenchaTouch",
+    "name": "Oreilly",
     "js": [
         {
             "path": "../resources/sencha-touch-all-debug.js"
@@ -13,11 +13,19 @@
         {
             "path": "../resources/css/sencha-touch.css",
             "update": "delta"
+        },
+        {
+            "path": "resources/css/app.css",
+            "update": "delta"
         }
     ],
     "appCache": {
         "cache": [
-            "index.html"
+            "index.html",
+            "data/feed.js",
+            "data/about.html",
+            "data/credits.html",
+            "data/sponsors.html"
         ],
         "network": [
             "*"
@@ -25,15 +33,17 @@
         "fallback": []
     },
     "extras": [
+        "data",
+        "resources/images",
         "resources/icons",
         "resources/loading"
     ],
     "archivePath": "archive",
     "buildPaths": {
-        "testing": "../deploy/testing/icons",
-        "production": "../deploy/production/icons",
-        "package": "../deploy/package/icons",
-        "native": "../deploy/native/icons"
+        "testing": "../deploy/testing/oreilly",
+        "production": "../deploy/production/oreilly",
+        "package": "../deploy/package/oreilly",
+        "native": "../deploy/native/oreilly"
     },
     "buildOptions": {
         "product": "touch",

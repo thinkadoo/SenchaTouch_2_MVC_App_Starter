@@ -1,129 +1,124 @@
 //<debug>
 Ext.Loader.setPath({
-    'Ext': '../src'
+    'Ext': '../../src',
+    'Oreilly': 'app'
 });
 //</debug>
 
-/**
- * This is a simple example which shows some of the built-in icons that are supported in Sencha Touch.
- */
+Ext.require('Oreilly.util.Proxy');
 
-// Define our application
 Ext.application({
-    glossOnIcon: false,
-    icon: {
-        57: 'resources/icons/icon.png',
-        72: 'resources/icons/icon@72.png',
-        114: 'resources/icons/icon@2x.png',
-        144: 'resources/icons/icon@114.png'
-    },
+    // Change the values below to re-configure the app for a different conference.
 
-    phoneStartupScreen: 'resources/loading/Homescreen.jpg',
-    tabletStartupScreen: 'resources/loading/Homescreen~ipad.jpg',
+    title:   'Web 2.0 Summit 2010',
+    dataUrl: 'http://en.oreilly.com/web2010/public/mobile_app/all',
 
-    // Require the components which will be used in this example
-    requires: [
-        'Ext.tab.Panel',
-        'Ext.Toolbar'
+    twitterSearch: '#w2s',
+
+    mapCenter: [37.788539, -122.401643],
+    mapText: 'The Palace Hotel<br /><small>2 New Montgomery Street<br />San Francisco, CA 94105<br />(415) 512-1111</small>',
+
+    aboutPages: [
+        {
+            title: 'Overview',
+            xtype: 'htmlPage',
+            url: 'data/about.html'
+        },
+        {
+            title: 'Sponsors',
+            xtype: 'htmlPage',
+            url: 'data/sponsors.html'
+        },
+        {
+            title: 'Credits',
+            xtype: 'htmlPage',
+            url: 'data/credits.html'
+        },
+        {
+            title: 'Videos',
+            xtype: 'videoList',
+            playlistId: '2737D508F656CCF8',
+            hideText: 'Web 2.0 Summit 2010: '
+        }
     ],
 
-    /**
-     * The launch method is called when the browser is ready, and the application can launch.
-     *
-     * In this method we will create a TabPanel which will demonstrate the different icons you can have on taps. Then we will also
-     * create a docked top toolbar with a bunch of buttons which also show icons.
-     */
+    // App namespace
+
+    name: 'Oreilly',
+
+    phoneStartupScreen:  'resources/img/startup.png',
+    tabletStartupScreen: 'resources/img/startup_640.png',
+
+    glossOnIcon: false,
+    icon: {
+        57: 'resources/img/icon.png',
+        72: 'resources/img/icon-72.png',
+        114: 'resources/img/icon-114.png'
+    },
+
+    // Dependencies
+
+    requires: ['Oreilly.util.Proxy'],
+
+    models: [
+        'Session',
+        'Speaker'
+    ],
+
+    views: [
+        'Main',
+
+        'session.Card',
+        'session.List',
+        'session.Detail',
+        'session.Info',
+
+        'speaker.Card',
+        'speaker.List',
+        'speaker.Detail',
+        'speaker.Info',
+
+        'Tweets',
+        'Location',
+
+        'about.Card',
+        'about.List',
+        'about.HtmlPage',
+        'about.VideoList'
+    ],
+
+    controllers: [
+        'Sessions',
+        'Speakers',
+        'Tweets',
+        'About'
+    ],
+
+    stores: [
+        'Sessions',
+        'SpeakerSessions',
+        'Speakers',
+        'SessionSpeakers',
+        'Tweets',
+        'Videos'
+    ],
+
+    viewport: {
+        autoMaximize: true
+    },
+
     launch: function() {
-        // Create the tab panel component
-        Ext.create('Ext.tab.Panel', {
-            // Make the tab panel fullscreen
-            fullscreen: true,
 
-            // Give the tabBar a custom configuration
-            tabBar: {
-                // Dock it to the bottom
-                docked: 'bottom',
+        Ext.Viewport.setMasked({ xtype: 'loadmask' });
 
-                // Change the layout so each of the tabs are centered vertically and horizontally
-                layout: {
-                    pack: 'center',
-                    align: 'center'
-                },
-
-                // Make the tabbar scrollable horizontally, and disabled the indicators
-                scrollable: {
-                    direction: 'horizontal',
-                    indicators: false
-                }
-            },
-
-            // Set the UI of the tabbar to light
-            ui  : 'light',
-
-            defaults: {
-                // Add some text about the example into the tabpanel as html and style it using default CSS
-                html: "Both toolbars and tabbars have built-in, ready to use icons. Styling custom icons is no hassle.<p><small>If you can't see all of the buttons below, try scrolling left/right.</small></p>"
-            },
-
-            // Add a bunch of items into the tabpanel, with iconCls'
-            items: [
-                { iconCls: 'bookmarks', title: 'Bookmarks' },
-                { iconCls: 'download',  title: 'Download' },
-                { iconCls: 'favorites', title: 'Favorites' },
-                { iconCls: 'info',      title: 'Info' },
-                { iconCls: 'more',      title: 'More' },
-                { iconCls: 'search',    title: 'Search' },
-                { iconCls: 'settings',  title: 'Settings' },
-                { iconCls: 'team',      title: 'Team' },
-                { iconCls: 'time',      title: 'Time' },
-                { iconCls: 'user',      title: 'User' },
-
-                // Also add a toolbar
-                {
-                    xtype: 'toolbar',
-
-                    // Dock it to the top
-                    docked: 'top',
-
-                    html: null,
-
-                    // Center all items horizontally and vertically
-                    layout: {
-                        pack: 'center',
-                        align: 'center'
-                    },
-
-                    // Make the toolbar scrollable
-                    scrollable: {
-                        direction: 'horizontal',
-                        indicators: false
-                    },
-
-                    // Add some default configurations to all items added to this toolbar
-                    defaults: {
-                        // iconMask is used when you need an pictos icon in a button
-                        iconMask: true,
-                        ui: 'plain'
-                    },
-
-                    // Add a bunch of buttons into the toolbar
-                    items: [
-                        { iconCls: 'action' },
-                        { iconCls: 'add' },
-                        { iconCls: 'arrow_up' },
-                        { iconCls: 'arrow_right' },
-                        { iconCls: 'arrow_down' },
-                        { iconCls: 'arrow_left' },
-                        { iconCls: 'compose' },
-                        { iconCls: 'delete' },
-                        { iconCls: 'refresh' },
-                        { iconCls: 'reply' },
-                        { iconCls: 'search' },
-                        { iconCls: 'star' },
-                        { iconCls: 'trash' }
-                    ]
-                }
-            ]
+        Oreilly.util.Proxy.process('data/feed.js', function() {
+            Ext.Viewport.add({ xtype: 'main' });
+            Ext.Viewport.setMasked(false);
         });
+
+        // setInterval(function(){
+        //     Ext.DomQuery.select('link')[0].href = "resources/css/oreilly.css?" + Math.ceil(Math.random() * 100000000)
+        // }, 1000);
     }
+
 });
